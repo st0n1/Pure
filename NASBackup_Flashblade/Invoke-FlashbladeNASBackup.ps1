@@ -72,8 +72,40 @@
              default {Write-Host "$timestamp $Info" -ForegroundColor white "$timestamp $Info" | Out-File -FilePath $LogFile -Append}
          }
      }
- 
-     function Load-FBModule{
+     
+     function Load-FBModule {
+        Write-Log -Info "Trying to load Flashblade Powershell module" -Status Info
+        # If module is imported say that and do nothing
+        if (Get-Module | Where-Object {$_.Name -eq "PureFBModule"}) {
+            Write-Log -Info "Module PureFBModule is already imported." -Status Info
+        }
+        else {
+    
+            # If module is not imported, but available on disk then import
+            if (Get-Module -ListAvailable | Where-Object {$_.Name -eq "PureFBModule"}) {
+                Write-Log -Info "Required Flashblade Powershell module is installed. Importing." -Status Info
+                Import-Module PureFBModule
+            }
+            else {
+    
+                # If module is not imported, not available on disk, but is in online gallery then install and import
+                if (Find-Module -Name PureFBModule | Where-Object {$_.Name -eq "PureFBModule"}) {
+                    Write-Log -Info "Required Flashblade Powershell module is not installed. Installing." -Status Info
+                    Install-Module -Name PureFBModule -Force -Scope CurrentUser
+                    Write-Log -Info "Required Flashblade Powershell module is now installed. Importing." -Status Info
+                    Import-Module PureFBModule
+                }
+                else {
+    
+                    # If module is not imported, not available and not in online gallery then abort
+                    Write-Log -Info "Module PureFBModule not imported, not available and not in online gallery, exiting." -Status Error
+                    EXIT 1
+                }
+            }
+        }
+    }
+
+<#     function Load-FBModule{
         Write-Log -Info "Trying to load Flashblade Powershell module" -Status Info
             if(Get-Module -ListAvailable | Where-Object {$_.Name -eq "PureFBModule"}) { 
                 Write-Log -Info "Required Flashblade Powershell module is installed" -Status Info
@@ -81,10 +113,12 @@
                 Write-Log -Info "Loaded required Flashblade Powershell module sucessfully" -Status Info
             }
             else {
+                Write-Log -Info "$_" -Status Error
                 Write-Log -Info "Required Flashblade Powershell module is not installed. You need to install it on your server first: Install-Module -Name PureFBModule . Aborting" -Status Error
                 exit 1
             }  
     }
+#>
  
      function Test-FBConnection{
         Write-Log -Info "Trying to connect to the Flashblade $FBName" -Status Info
@@ -94,6 +128,7 @@
             Write-Log -Info "Connection to Flashblade $FBName with ID $FBConnectionID established successfully" -Status Info
         }
         else {
+            Write-Log -Info "$_" -Status Error
             Write-Log -Info "Connection to Flashblade $FBName" -Status Error
             exit 1
         }
@@ -115,7 +150,7 @@
                  $SnapCreationTime = $SnapCreationUnixTime.LocalDateTime
                  try {
                      #remove the existing snapshot
-                     Write-Log -Info "Trying to remove snapshot $ExistingSnapName with ID $ExistingSnapID and date $SnapCreationTime found." -Status Info
+                     Write-Log -Info "Trying to remove snapshot $ExistingSnapName with ID $ExistingSnapID and date $SnapCreationTime." -Status Info
                      Update-PfbFilesystemSnapshot -Flashblade $FBName -ApiToken $ApiToken -Name "$FilesystemName.$SnapshotSuffix" -Attributes '{"destroyed":"true" } ' | Out-Null 
                      Write-Log -Info "Snapshot $ExistingSnapName with ID $ExistingSnapID destroyed" -Status Info
                      Remove-PfbFilesystemSnapshot -Flashblade $FBName -ApiToken $ApiToken -Name "$FilesystemName.$SnapshotSuffix"
@@ -147,7 +182,7 @@
      Write-Log -Info " " -Status Info
      Write-Log -Info "-------------- NEW SESSION --------------" -Status Info
      Write-Log -Info " " -Status Info
- 
+
      #Load the required PS modules
      Load-FBModule
      
@@ -158,4 +193,5 @@
      Create-NewSnapShot
    
  } # END Process
+ 
  

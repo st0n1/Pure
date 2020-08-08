@@ -12,24 +12,31 @@ $arguments = @{
     #
     # Name or ip adress.
     #
-    Name = ""
+    Name = "10.225.112.69"
     #
     # API-Token
     #
-    APIToken = ""
+    APIToken = "T-2b74f9eb-a35f-40d9-a6a6-33c13775a53c"
     #
-    # Filesystem Name
+    # Filesystem Names
     #
-    FilesystemName = ""
+    FilesystemName = "AAAAAtest"
+    #
+    # SnapshotSuffix
+    #
+    SnapshotSuffix="VeeamNASBackup"
+    #
+    # Logfile
+    #
+    LogFile="C:\ProgramData\Veeam\Backup\FlashbladeNASBackup.log"
  }
  # 
 
-$PSVersionTable.PSVersion
+$PSVersionTable.PSVersion | Out-Null
 
-if ($PSVersionTable.PSVersion -lt "6.0")
+if ($PSVersionTable.PSVersion -lt "8.0")
 {
-	pwsh -f $PSScriptRoot\Invoke-FlashbladeNASBackup.ps1 @arguments
-	return
+   & C:\"Program Files"\PowerShell\7\pwsh.exe -f ./Invoke-FlashbladeNASBackup.ps1 @arguments
+   return
+   # & pwsh -f ./Invoke-FlashbladeNASBackup.ps1 @arguments
 }
-
-
