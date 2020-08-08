@@ -28,12 +28,14 @@
    c:\scripts\latest\Invoke-FlashbladeNASBackup.ps1 -Name fb01.example.com -FilesystemName share01 -ApiToken T-bf48b96d-c425-4e5c-blaf-70b0ea364eaf 
 
    .Notes 
-   Version:        0.1
+   Version:        0.2
    Author:         Christian Stein (cstein@purestorage.com)
    Creation Date:  04.09.2020
    Purpose/Change: Initial script development
    Based on:       https://github.com/marcohorstmann/psscripts/tree/master/NASBackup by Marco Horstmann (marco.horstmann@veeam.com)
  #> 
+
+ #requires -PSEdition Core
 
  [CmdletBinding(DefaultParameterSetName="__AllParameterSets")]
  Param(
