@@ -52,13 +52,13 @@
     [alias("FilesystemName")]
     [string]$Script:FilesystemName,
  
-    [Parameter(Mandatory=$False)]
+    [Parameter(Mandatory=$True)]
     [alias("SnapshotSuffix")]
-    [string]$Script:SnapshotSuffix="VeeamNASBackup",
+    [string]$Script:SnapshotSuffix,
  
-    [Parameter(Mandatory=$False)]
+    [Parameter(Mandatory=$True)]
     [alias("LogFile")]
-    [string]$Script:LogFile="C:\ProgramData\Veeam\Backup\FlashbladeNASBackup.log"
+    [string]$Script:LogFile
  
  )
  
@@ -106,21 +106,6 @@
             }
         }
     }
-
-<#     function Load-FBModule{
-        Write-Log -Info "Trying to load Flashblade Powershell module" -Status Info
-            if(Get-Module -ListAvailable | Where-Object {$_.Name -eq "PureFBModule"}) { 
-                Write-Log -Info "Required Flashblade Powershell module is installed" -Status Info
-                Import-Module -Force PureFBModule
-                Write-Log -Info "Loaded required Flashblade Powershell module sucessfully" -Status Info
-            }
-            else {
-                Write-Log -Info "$_" -Status Error
-                Write-Log -Info "Required Flashblade Powershell module is not installed. You need to install it on your server first: Install-Module -Name PureFBModule . Aborting" -Status Error
-                exit 1
-            }  
-    }
-#>
  
      function Test-FBConnection{
         Write-Log -Info "Trying to connect to the Flashblade $FBName" -Status Info
@@ -181,9 +166,7 @@
      }
  
  
-     Write-Log -Info " " -Status Info
-     Write-Log -Info "-------------- NEW SESSION --------------" -Status Info
-     Write-Log -Info " " -Status Info
+     Write-Log -Info "Executing Invoke-FlashbladeNASBackup.ps1" -Status Info
 
      #Load the required PS modules
      Load-FBModule
