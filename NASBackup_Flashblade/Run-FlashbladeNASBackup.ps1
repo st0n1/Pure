@@ -2,8 +2,25 @@
    .SYNOPSIS
    Wrapper to run Invoke-FlashbladeNASBackup.ps1 with pwsh and prefill required arguments.
    Wrapper requires static Powershell pwsh.exe path as a Veeam requirement. Change it as needed.
+   
+   .PARAMETER Name
+   With this parameter you specify the Flashblade DNS name or IP
+
+   .PARAMETER ApiToken
+   An API Token is required to connect securely without a user and password to the FlashBlade.
+   You have to generate an API Token on the FlashBlade via commandline first: pureadmin create --api-token USERNAME 
+
+   .PARAMETER FilesystemName
+   With this parameter you specify the Filesystem that you want to snapshot
+  
+   .PARAMETER SnapshotSuffix
+   With this parameter you can change the default snapshotsuffix "VeeamNASBackup" to your own name
+   
+   .PARAMETER LogFile
+   You can set your own path for log files from this script. Default path is the same as VBR uses by default "C:\ProgramData\Veeam\Backup\FlashbladeNASBackup.log"
+   
    .Notes 
-   Version:        1.0
+   Version:        1.1
    Author:         Christian Stein
    Creation Date:  08.08.2020
 
