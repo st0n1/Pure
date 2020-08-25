@@ -18,8 +18,10 @@ Write down he API Token and insert it as an parameter into the RUN-FlashbladeNAS
 
 All required and optional parameters are documented within the script itself.
 
-To use the script insert it as an PreCommand within the Veeam Backupjob: Select your File Backup Job -> Right Click Edit -> Storage -> Advanced -> Scripts -> "Run the following script before the job" -> Browse for the RUN-FlashbladeNASBackup.ps1 -> OK -> Finish
+To use the script insert it as a pre-command within the Veeam Backupjob:
+ Select your File Backup Job -> Right Click Edit -> Storage -> Advanced -> Scripts -> "Run the following script before the job" -> Browse for the RUN-FlashbladeNASBackup.ps1 -> OK -> Finish
 
-After that add the Snapshot in the Share Configuration. Inventory -> File Shares -> Right Click the File Share -> Properties -> Advanced -> "Backup from a storage snapshot at the following path" and insert the Snapshot path, e.g. \\1.2.3.4\TESTSHARE\.snapshot\TESTSHARE.VeeamNASBackup -> OK -> Finish
+After that add the Snapshot in the Share Configuration:
+ Inventory -> File Shares -> Right Click the File Share -> Properties -> Advanced -> "Backup from a storage snapshot at the following path" and insert the Snapshot path, e.g. \\1.2.3.4\TESTSHARE\.snapshot\TESTSHARE.VeeamNASBackup -> OK -> Finish
 
-Have fun!
+Start the Backup Job and enjoy! :)
