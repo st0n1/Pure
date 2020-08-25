@@ -24,6 +24,6 @@ To use the script insert it as a pre-command within the Veeam Backupjob:
 
 After that add the Snapshot in the Share Configuration:
 
- Inventory -> File Shares -> Right Click the File Share -> Properties -> Advanced -> "Backup from a storage snapshot at the following path" and insert the Snapshot path, e.g.:" \\1.2.3.4\TESTSHARE\.snapshot\TESTSHARE.VeeamNASBackup " -> OK -> Finish
+ Inventory -> File Shares -> Right Click the File Share -> Properties -> Advanced -> "Backup from a storage snapshot at the following path" and insert the Snapshot path, e.g.: \\1.2.3.4\TESTSHARE\/.snapshot\TESTSHARE.VeeamNASBackup -> OK -> Finish
 
 Start the Backup Job and enjoy! :)
