@@ -7,10 +7,13 @@ NASBACKUP_Flashblade consists of 2 .ps1 Powershell Scripts and takes care of bac
 Both scripts need to be in the same path on the Veeam Server.
 
 Requirements: Powershell 6/7 on the Veeam Server (can be installed via powershell cli with the following command: 
+
 iex "& { $(irm https://aka.ms/install-powershell.ps1) } -UseMSI")
 
 Furthermore you need an API-Token. Generate it by logging into the Flashblade via SSH and execute:
-pureadmin create --api-token 
+
+pureadmin create --api-token
+
 Write down he API Token and insert it as an parameter into the RUN-FlashbladeNASBackup.ps1 script.
 
 All required and optional parameters are documented within the script itself.
