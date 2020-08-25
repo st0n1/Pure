@@ -1,7 +1,7 @@
 # NASBackup_Flashblade
 
 NASBACKUP_Flashblade consists of 2 .ps1 Powershell Scripts and takes care of backing up a Flashblade FileShare via an alternative path (Snapshot) within Veeam.
-1. Invoke-FlashbladeNASBackup.ps1 and
+1. Invoke-FlashbladeNASBackup.ps1 doeas all the heavy lifting and
 2. RUN-FlashbladeNASBackup.ps1 makes sure that Invoke-FlashbladeNASBackup.ps1 will be executed by pwsh (powershell 6/7) instead of powershell 5. Furthermore you can use it for parameterization. 
 
 Both scripts need to be in the same path on the Veeam Server.
