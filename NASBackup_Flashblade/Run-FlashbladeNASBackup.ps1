@@ -60,11 +60,11 @@ $arguments = @{
  function Write-Log($Info, $Status){
    $timestamp = get-date -Format "yyyy-mm-dd HH:mm:ss"
    switch($Status){
-       Info    {Write-Host "$timestamp $Info" -ForegroundColor Green  ; "$timestamp $Info" | Out-File -FilePath $LogFile -Append}
-       Status  {Write-Host "$timestamp $Info" -ForegroundColor Yellow ; "$timestamp $Info" | Out-File -FilePath $LogFile -Append}
-       Warning {Write-Host "$timestamp $Info" -ForegroundColor Yellow ; "$timestamp $Info" | Out-File -FilePath $LogFile -Append}
-       Error   {Write-Host "$timestamp $Info" -ForegroundColor Red -BackgroundColor White; "$timestamp $Info" | Out-File -FilePath $LogFile -Append}
-       default {Write-Host "$timestamp $Info" -ForegroundColor white "$timestamp $Info" | Out-File -FilePath $LogFile -Append}
+       Info    {Write-Host "$timestamp $Info" -ForegroundColor Green  ; "$timestamp $Info" | Out-File -FilePath $LogFile -Append -Encoding Ascii}
+       Status  {Write-Host "$timestamp $Info" -ForegroundColor Yellow ; "$timestamp $Info" | Out-File -FilePath $LogFile -Append -Encoding Ascii}
+       Warning {Write-Host "$timestamp $Info" -ForegroundColor Yellow ; "$timestamp $Info" | Out-File -FilePath $LogFile -Append -Encoding Ascii}
+       Error   {Write-Host "$timestamp $Info" -ForegroundColor Red -BackgroundColor White; "$timestamp $Info" | Out-File -FilePath $LogFile -Append -Encoding Ascii}
+       default {Write-Host "$timestamp $Info" -ForegroundColor white "$timestamp $Info" | Out-File -FilePath $LogFile -Append -Encoding Ascii}
    }
 }
 
@@ -76,9 +76,9 @@ try {
    Write-Log -Info "Checking if $PWSHEXE exists" -Status Info
    Get-ChildItem $PWSHEXE | Out-Null 
    Write-Log -Info "Calling Invoke-FlashbladeNASBackup.ps1 @arguments" -Status Info
-   & "$PWSHEXE" -f ./Invoke-FlashbladeNASBackup.ps1 @arguments
+   & "$PWSHEXE" -f .\Invoke-FlashbladeNASBackup.ps1 @arguments
 }
 catch{
-   Write-Log -Info "Error while calling $PWSHEXE -f ./Invoke-FlashbladeNASBackup.ps1" -Status Error
+   Write-Log -Info "Error while calling $PWSHEXE -f .\Invoke-FlashbladeNASBackup.ps1" -Status Error
    exit 1
 }
